@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    image: dascha770/test-swarm-app:1
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

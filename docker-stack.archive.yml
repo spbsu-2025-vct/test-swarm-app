@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  api:
+    image: fastapi-service:1.0.0
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
