@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   api:
-    image: fastapi-service:1.0.0
+    image: dascha770/test-swarm-app:1
     build: 
       context: .
       dockerfile: Dockerfile
